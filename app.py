@@ -51,8 +51,14 @@ def post():
 
         score = score_count(sleeping_time)
         deviation = deviation_count(sleeping_time)
-        
-        return render_template("sample_result.html", sleeping_time=sleeping_time, score=score, deviation= deviation)
+        deviation = round(deviation, 5)
+
+        if deviation > 55:
+            return render_template("gold.html", sleeping_time=sleeping_time, score=score, deviation= deviation)
+        if 55 >= deviation >= 50:
+            return render_template("silver.html", sleeping_time=sleeping_time, score=score, deviation= deviation)
+        else:
+            return render_template("copper.html", sleeping_time=sleeping_time, score=score, deviation= deviation)
         #return {'time': sleeping_time, 'score': score, 'deviation': deviation}
 
 @app.route('/')
